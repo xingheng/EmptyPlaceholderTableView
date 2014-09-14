@@ -7,18 +7,18 @@
 //
 
 #import "ViewController.h"
+#import "MyTableViewCell.h"
 
 #define kTableViewID    @"kTableViewIdentifier"
 
 @interface ViewController ()
 {
     NSMutableArray *dataArray;
-    NSMutableArray *dataArray2;
 }
 
 @end
 
-static bool fNewDataSource = false;
+static bool fLoadingFailed = false;
 
 @implementation ViewController
 
@@ -36,27 +36,6 @@ static int len = 5;
     }
 }
 
-- (void)updateDataArray2
-{
-    BOOL isEmpty = NO;
-    if (dataArray2 == nil)
-    {
-        isEmpty = YES;
-        dataArray2 = [[NSMutableArray alloc] initWithCapacity:10];
-    }
-    
-    for( int i = 0; i < len; i++)
-    {
-        if (isEmpty)
-            [dataArray2 addObject:@(i*i)];
-        else
-        {
-            int num = [dataArray2[i] intValue];
-            dataArray2[i] = @(num * 2);
-        }
-    }
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -65,9 +44,8 @@ static int len = 5;
 
 - (IBAction)tapButton:(id)sender {
 //    NSLog(@"Changing to new data source");
-    [self updateDataArray2];
     
-    fNewDataSource = true;
+    fLoadingFailed = true;
     [self.myTableView reloadData];
 }
 
@@ -75,23 +53,20 @@ static int len = 5;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (!fNewDataSource)
-    {
-        return [dataArray count];
-    }
-    else
-    {
-        return [dataArray2 count];
-    }
+    return fLoadingFailed ? 1 : [dataArray count];
 }
-
-// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
 static int myCount = 0, myCountCreate = 0;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (fLoadingFailed)
+    {
+        MyTableViewCell *placeholderCell = [[MyTableViewCell alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
+        //placeholderCell.textLabel.text = @"Placeholder for loading failed.";
+        return placeholderCell;
+    }
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTableViewID];
     if (cell == nil)
     {
@@ -101,16 +76,18 @@ static int myCount = 0, myCountCreate = 0;
     
     myCount++;
     
+    
+    
     NSInteger index = indexPath.row;
+    cell.textLabel.text = [[dataArray objectAtIndex:index] stringValue];
     
-    if (!fNewDataSource)
-        cell.textLabel.text = [[dataArray objectAtIndex:index] stringValue];
-    else
-        cell.textLabel.text = [[dataArray2 objectAtIndex:index] stringValue];
-    
-    
-    NSLog(@"myCount: %d, myCountCreate: %d", myCount, myCountCreate);
+    //NSLog(@"myCount: %d, myCountCreate: %d", myCount, myCountCreate);
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return fLoadingFailed ? tableView.frame.size.height : 40;
 }
 
 @end

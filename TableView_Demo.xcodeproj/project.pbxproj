@@ -21,6 +21,8 @@
 		6832A09819C2D38C00FA907E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6832A07A19C2D38C00FA907E /* UIKit.framework */; };
 		6832A0A019C2D38C00FA907E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6832A09E19C2D38C00FA907E /* InfoPlist.strings */; };
 		6832A0A219C2D38C00FA907E /* TableView_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6832A0A119C2D38C00FA907E /* TableView_DemoTests.m */; };
+		6832A0AD19C52F7F00FA907E /* MyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6832A0AC19C52F7F00FA907E /* MyTableViewCell.m */; };
+		6832A0B019C5B26100FA907E /* OAArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6832A0AF19C5B26100FA907E /* OAArrayDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		6832A09D19C2D38C00FA907E /* TableView_DemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TableView_DemoTests-Info.plist"; sourceTree = "<group>"; };
 		6832A09F19C2D38C00FA907E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6832A0A119C2D38C00FA907E /* TableView_DemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableView_DemoTests.m; sourceTree = "<group>"; };
+		6832A0AB19C52F7F00FA907E /* MyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewCell.h; sourceTree = "<group>"; };
+		6832A0AC19C52F7F00FA907E /* MyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewCell.m; sourceTree = "<group>"; };
+		6832A0AE19C5B26100FA907E /* OAArrayDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OAArrayDataSource.h; path = TableView_Demo/OAArrayDataSource.h; sourceTree = "<group>"; };
+		6832A0AF19C5B26100FA907E /* OAArrayDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OAArrayDataSource.m; path = TableView_Demo/OAArrayDataSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,7 @@
 		6832A06A19C2D38B00FA907E = {
 			isa = PBXGroup;
 			children = (
+				6832A0B119C5B27300FA907E /* OAArrayDataSource */,
 				6832A07C19C2D38C00FA907E /* TableView_Demo */,
 				6832A09B19C2D38C00FA907E /* TableView_DemoTests */,
 				6832A07519C2D38C00FA907E /* Frameworks */,
@@ -117,6 +124,8 @@
 				6832A08819C2D38C00FA907E /* Main.storyboard */,
 				6832A08B19C2D38C00FA907E /* ViewController.h */,
 				6832A08C19C2D38C00FA907E /* ViewController.m */,
+				6832A0AB19C52F7F00FA907E /* MyTableViewCell.h */,
+				6832A0AC19C52F7F00FA907E /* MyTableViewCell.m */,
 				6832A08E19C2D38C00FA907E /* Images.xcassets */,
 				6832A07D19C2D38C00FA907E /* Supporting Files */,
 			);
@@ -150,6 +159,15 @@
 				6832A09E19C2D38C00FA907E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6832A0B119C5B27300FA907E /* OAArrayDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				6832A0AE19C5B26100FA907E /* OAArrayDataSource.h */,
+				6832A0AF19C5B26100FA907E /* OAArrayDataSource.m */,
+			);
+			name = OAArrayDataSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,8 +268,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6832A08D19C2D38C00FA907E /* ViewController.m in Sources */,
+				6832A0AD19C52F7F00FA907E /* MyTableViewCell.m in Sources */,
 				6832A08719C2D38C00FA907E /* AppDelegate.m in Sources */,
 				6832A08319C2D38C00FA907E /* main.m in Sources */,
+				6832A0B019C5B26100FA907E /* OAArrayDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +476,7 @@
 				6832A0A719C2D38C00FA907E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6832A0A819C2D38C00FA907E /* Build configuration list for PBXNativeTarget "TableView_DemoTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +485,7 @@
 				6832A0AA19C2D38C00FA907E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
