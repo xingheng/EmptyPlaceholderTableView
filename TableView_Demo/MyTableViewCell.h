@@ -8,17 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
-@protocol TableViewLoadingFailedDelegate <NSObject>
-
-- (NSInteger)numberOfRowsInSection:(NSInteger)section;
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-
-- (CGFloat)rowHeight;
-
-@end
-
-
-@interface MyTableViewCell : UITableViewCell<TableViewLoadingFailedDelegate>
+@interface MyTableViewCell : UITableViewCell
 
 @end

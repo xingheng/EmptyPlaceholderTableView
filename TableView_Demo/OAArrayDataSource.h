@@ -11,12 +11,19 @@
 typedef void (^TableViewCellConfigureBlock)(id cell, id item);
 typedef NSString * (^IdentifierParserBlock)(id item);
 
-@interface OAArrayDataSource : NSObject<UITableViewDataSource>
+@interface OAArrayDataSource : NSObject<UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSArray *items;
+@property (strong, nonatomic) NSMutableArray *items;
+@property (strong, nonatomic) UIView *placeholderView;
 
 - (id)initWithItems  :(NSArray *)items
 identifierParserBlock:(IdentifierParserBlock)parserBlock
  configureCellBlock  :(TableViewCellConfigureBlock)configureCellBlock;
+
+- (id)initWithItems  :(NSArray *)items
+identifierParserBlock:(IdentifierParserBlock)parserBlock
+ configureCellBlock  :(TableViewCellConfigureBlock)configureCellBlock
+            rowHeight:(CGFloat)aRowHeight
+      placeholderView:(UIView *)aView;
 
 @end

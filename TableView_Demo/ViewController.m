@@ -21,8 +21,6 @@
 
 @end
 
-static bool fLoadingFailed = false;
-
 @implementation ViewController
 
 - (void)viewDidLoad
@@ -31,7 +29,7 @@ static bool fLoadingFailed = false;
 	// Do any additional setup after loading the view, typically from a nib.
     
     originDataSource = [[NSMutableArray alloc] initWithCapacity:10];
-    for( int i = 0; i < 5; i++)
+    for(int i = 0; i < 5; i++)
     {
         [originDataSource addObject:@(i)];
     }
@@ -39,6 +37,7 @@ static bool fLoadingFailed = false;
     //To use CleanTableViewDataSource, you should register the cell with identifer
     [self.myTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kTableViewID];
     self.myTableView.dataSource = self.arrayDataSource;
+    self.myTableView.delegate = self.arrayDataSource;
 }
 
 - (OAArrayDataSource *)arrayDataSource
@@ -51,10 +50,16 @@ static bool fLoadingFailed = false;
         //Depend on item data, return the right cell identifier here.
         return kTableViewID;
     };
+    
+    UILabel *placeholderView = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 200, 200)];
+    [placeholderView setText:@"arrayDataSource: placeholder for empty table."];
+    
     if (!_arrayDataSource) {
         _arrayDataSource = [[OAArrayDataSource alloc] initWithItems:originDataSource
                                               identifierParserBlock:identifierParserBlock
-                                                 configureCellBlock:configureCell];
+                                                 configureCellBlock:configureCell
+                                                          rowHeight:40
+                                                    placeholderView:placeholderView];
     }
     return _arrayDataSource;
 }
@@ -67,54 +72,8 @@ static bool fLoadingFailed = false;
 }
 
 - (IBAction)tapButton:(id)sender {
-//    NSLog(@"Changing to new data source");
-    
-    fLoadingFailed = true;
+    [self.arrayDataSource.items removeAllObjects];
     [self.myTableView reloadData];
-}
-
-#pragma mark - UITableViewDataSource
-/*
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return fLoadingFailed ? 1 : [dataArray count];
-}
-
-static int myCount = 0, myCountCreate = 0;
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (fLoadingFailed)
-    {
-        MyTableViewCell *placeholderCell = [[MyTableViewCell alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
-        //placeholderCell.textLabel.text = @"Placeholder for loading failed.";
-        return placeholderCell;
-    }
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kTableViewID];
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTableViewID];
-        myCountCreate++;
-    }
-    
-    myCount++;
-    
-    
-    
-    NSInteger index = indexPath.row;
-    cell.textLabel.text = [[dataArray objectAtIndex:index] stringValue];
-    
-    //NSLog(@"myCount: %d, myCountCreate: %d", myCount, myCountCreate);
-    return cell;
-}
-*/
-
-#pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return fLoadingFailed ? tableView.frame.size.height : 40;
 }
 
 @end
