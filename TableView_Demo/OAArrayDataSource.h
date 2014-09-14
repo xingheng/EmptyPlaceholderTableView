@@ -5,6 +5,8 @@
 //  Created by Phat, Le Tan on 5/2/14.
 //  Copyright (c) 2014 FourFi. All rights reserved.
 //
+//  This class implementation refers to OAArrayDataSource in https://github.com/phatle/CleanTableViewDataSource
+//  Edited by Will Han on 9/14/14.
 
 #import <Foundation/Foundation.h>
 
