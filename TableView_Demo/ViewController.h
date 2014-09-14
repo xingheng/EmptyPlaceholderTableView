@@ -16,7 +16,7 @@
 #define kContent_CenterY  (kContent_Height / 2)
 
 
-@interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UIViewController<UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 - (IBAction)tapButton:(id)sender;

@@ -8,13 +8,16 @@
 
 #import "ViewController.h"
 #import "MyTableViewCell.h"
+#import "OAArrayDataSource.h"
 
 #define kTableViewID    @"kTableViewIdentifier"
 
 @interface ViewController ()
 {
-    NSMutableArray *dataArray;
+    NSMutableArray *originDataSource;
 }
+
+@property (strong, nonatomic) OAArrayDataSource *arrayDataSource;
 
 @end
 
@@ -22,19 +25,40 @@ static bool fLoadingFailed = false;
 
 @implementation ViewController
 
-static int len = 5;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    dataArray = [[NSMutableArray alloc] initWithCapacity:10];
-    for( int i = 0; i < len; i++)
+    originDataSource = [[NSMutableArray alloc] initWithCapacity:10];
+    for( int i = 0; i < 5; i++)
     {
-        [dataArray addObject:@(i)];
+        [originDataSource addObject:@(i)];
     }
+    
+    //To use CleanTableViewDataSource, you should register the cell with identifer
+    [self.myTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kTableViewID];
+    self.myTableView.dataSource = self.arrayDataSource;
 }
+
+- (OAArrayDataSource *)arrayDataSource
+{
+    TableViewCellConfigureBlock configureCell = ^(UITableViewCell *cell, id item) {
+        //Configure cell within this block. If there are many types of cell, write more blocks or functions to configure cell depending on the item passing.
+        cell.textLabel.text = [item stringValue];
+    };
+    IdentifierParserBlock identifierParserBlock = ^NSString *(id item) {
+        //Depend on item data, return the right cell identifier here.
+        return kTableViewID;
+    };
+    if (!_arrayDataSource) {
+        _arrayDataSource = [[OAArrayDataSource alloc] initWithItems:originDataSource
+                                              identifierParserBlock:identifierParserBlock
+                                                 configureCellBlock:configureCell];
+    }
+    return _arrayDataSource;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -50,7 +74,7 @@ static int len = 5;
 }
 
 #pragma mark - UITableViewDataSource
-
+/*
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return fLoadingFailed ? 1 : [dataArray count];
@@ -84,6 +108,9 @@ static int myCount = 0, myCountCreate = 0;
     //NSLog(@"myCount: %d, myCountCreate: %d", myCount, myCountCreate);
     return cell;
 }
+*/
+
+#pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
