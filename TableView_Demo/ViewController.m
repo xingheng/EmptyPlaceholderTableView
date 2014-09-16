@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "MyTableViewCell.h"
 #import "OAArrayDataSource.h"
+#import "MultiStateTableView.h"
+#import "Provider.h"
 
 #define kTableViewID    @"kTableViewIdentifier"
 
@@ -64,6 +66,22 @@
     return _arrayDataSource;
 }
 
+- (void) initProvider {
+//    Provider* provider1 = [[Provider alloc] init];
+//    Provider* provider2 = [[Provider alloc] init];
+//    // Switch Provider
+//    BOOL condition = YES;
+//    if (condition) {
+//        self.myTableView.dataSource = provider1;
+//        self.myTableView.delegate = provider1;
+//        [self.myTableView reloadData];
+//    } else {
+//        self.myTableView.dataSource = provider2;
+//        self.myTableView.delegate = provider2;
+//        [self.myTableView reloadData];
+//    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -72,8 +90,43 @@
 }
 
 - (IBAction)tapButton:(id)sender {
-    [self.arrayDataSource.items removeAllObjects];
+//    [self.arrayDataSource.items removeAllObjects];
+    
+    //[self.myTableView switchDataSource:MultiStateTableViewFailed];
+    
+//    MultiStateTableView *newTableView;
+    MultiStateTableView *newTableView = [[MultiStateTableView alloc] initWithFrame:self.myTableView.frame];
+    newTableView.multiStateDelegate = self;
+    
+    [newTableView setStateFlag:MultiStateTableViewFailed];
+    
+    [newTableView switchDataSource:self.myTableView];
+    
     [self.myTableView reloadData];
+}
+
+- (UIView *)loadViewForState:(MultiStateTableViewFlag)aFlag
+{
+    UILabel *view;
+    
+    switch (aFlag) {
+        case MultiStateTableViewFailed:
+            view = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 300, 300)];
+            view.text = @"Loading data failed.";
+            break;
+            
+        case MultiStateTableViewSuccessWithNull:
+            view = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 300, 300)];
+            view.text = @"Loading successfully with empty data.";
+            break;
+            
+            //        case MultiStateTableViewSuccess:
+            //            break;
+        default:
+            break;
+    }
+    
+    return view;
 }
 
 @end

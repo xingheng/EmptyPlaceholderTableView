@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MultiStateTableView.h"
 
 #define kContent_Height   ([UIScreen mainScreen].applicationFrame.size.height)
 #define kContent_Width    ([UIScreen mainScreen].applicationFrame.size.width)
@@ -16,9 +16,9 @@
 #define kContent_CenterY  (kContent_Height / 2)
 
 
-@interface ViewController : UIViewController<UITableViewDelegate>
+@interface ViewController : UIViewController<UITableViewDelegate, MultiStateTableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *myTableView;
+@property (weak, nonatomic) IBOutlet MultiStateTableView *myTableView;
 - (IBAction)tapButton:(id)sender;
 
 @end
