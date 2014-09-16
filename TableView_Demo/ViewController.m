@@ -17,6 +17,7 @@
 @interface ViewController ()
 {
     NSMutableArray *originDataSource;
+    MultiStateTableView *newTableView;
 }
 
 @property (strong, nonatomic) OAArrayDataSource *arrayDataSource;
@@ -94,8 +95,7 @@
     
     //[self.myTableView switchDataSource:MultiStateTableViewFailed];
     
-//    MultiStateTableView *newTableView;
-    MultiStateTableView *newTableView = [[MultiStateTableView alloc] initWithFrame:self.myTableView.frame];
+    newTableView = [[MultiStateTableView alloc] initWithFrame:self.myTableView.frame];
     newTableView.multiStateDelegate = self;
     
     [newTableView setStateFlag:MultiStateTableViewFailed];
