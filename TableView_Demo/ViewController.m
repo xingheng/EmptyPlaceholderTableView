@@ -91,9 +91,6 @@
 }
 
 - (IBAction)tapButton:(id)sender {
-//    [self.arrayDataSource.items removeAllObjects];
-    
-    //[self.myTableView switchDataSource:MultiStateTableViewFailed];
     
     newTableView = [[MultiStateTableView alloc] initWithFrame:self.myTableView.frame];
     newTableView.multiStateDelegate = self;
